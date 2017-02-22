@@ -10,5 +10,10 @@ public class WelcomeController {
     public String welcome() {
         return "welcome";
     }
+    
+    @RequestMapping("/test")
+    public String test() {
+        return "test";
+    }
 
 }
