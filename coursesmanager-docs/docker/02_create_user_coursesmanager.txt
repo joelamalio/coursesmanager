@@ -1,0 +1,5 @@
+CREATE USER coursesmanager IDENTIFIED BY coursesmanager;
+GRANT CONNECT TO coursesmanager;
+GRANT RESOURCE TO coursesmanager;
+
+GRANT UNLIMITED TABLESPACE TO coursesmanager;
