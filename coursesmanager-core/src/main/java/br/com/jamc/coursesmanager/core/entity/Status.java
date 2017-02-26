@@ -2,7 +2,6 @@ package br.com.jamc.coursesmanager.core.entity;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,11 +27,9 @@ public class Status implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_STATUS")
-	@Column(name="ID")
 	private Long id;
 
 	@NotBlank(message = "The name field is required.")
-	@Column(name="NAME")
 	private String name;
 
 }
