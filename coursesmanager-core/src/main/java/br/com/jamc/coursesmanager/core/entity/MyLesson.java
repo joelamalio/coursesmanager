@@ -3,17 +3,17 @@ package br.com.jamc.coursesmanager.core.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import lombok.Data;
-import javax.persistence.Entity;
-import org.hibernate.validator.constraints.NotBlank;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import lombok.Data;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  *
@@ -21,17 +21,14 @@ import javax.persistence.TemporalType;
  */
 @Data
 @Entity
-@SequenceGenerator(name = "SEQ_EDUCATIONAL_INSTITUTION", initialValue = 1, allocationSize = 1)
-public class EducationalInstitution implements Serializable {
+@SequenceGenerator(name = "SEQ_MY_LESSON", initialValue = 1, allocationSize = 1)
+public class MyLesson implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_EDUCATIONAL_INSTITUTION")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_MY_LESSON")
     private Long id;
-
-    @NotBlank(message = "The name field is required.")
-    private String name;
 
     @NotBlank(message = "The createdAt field is required.")
     @JsonFormat(pattern="MM/dd/yyyy HH:mm:ss")
@@ -47,7 +44,14 @@ public class EducationalInstitution implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date removedAt;
 
-    @OneToMany(mappedBy = "educationalInstitution")
-    private List<Course> courses;
+    @NotBlank(message = "The course field is required.")
+    @ManyToOne
+    @JoinColumn(name = "my_course_id")
+    private MyCourse myCourse;
+
+    @NotBlank(message = "The status field is required.")
+    @ManyToOne
+    @JoinColumn(name = "status_id")
+    private Status status;
 
 }

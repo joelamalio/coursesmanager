@@ -1,5 +1,6 @@
 package br.com.jamc.coursesmanager.core.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.GeneratedValue;
@@ -13,7 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.hibernate.validator.constraints.NotBlank;
-import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -27,21 +27,28 @@ public class Lesson implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="SEQ_LESSON")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_LESSON")
     private Long id;
 
     @ManyToOne
     @JoinColumn(name = "course_id")
     private Course course;
 
-    @ManyToOne
-    @JoinColumn(name = "status_id")
-    private Status status;
-
     @NotBlank(message = "The name field is required.")
     private String name;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    @Temporal(TemporalType.DATE)
-    private Date atUpdate;
+    @NotBlank(message = "The createdAt field is required.")
+    @JsonFormat(pattern="MM/dd/yyyy HH:mm:ss")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
+
+    @NotBlank(message = "The updatedAt field is required.")
+    @JsonFormat(pattern="MM/dd/yyyy HH:mm:ss")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updatedAt;
+
+    @JsonFormat(pattern="MM/dd/yyyy HH:mm:ss")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date removedAt;
+
 }
