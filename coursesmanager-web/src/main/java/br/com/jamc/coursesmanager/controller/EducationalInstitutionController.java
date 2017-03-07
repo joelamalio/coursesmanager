@@ -1,9 +1,12 @@
 package br.com.jamc.coursesmanager.controller;
 
 import br.com.jamc.coursesmanager.core.entity.EducationalInstitution;
+import br.com.jamc.coursesmanager.core.filter.EducationalInstitutionFilter;
 import br.com.jamc.coursesmanager.core.service.EducationalInstitutionService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +32,11 @@ public class EducationalInstitutionController {
     @GetMapping(value = "")
     public List<EducationalInstitution> findAll() {
         return educationalInstitutionService.findAll();
+    }
+
+    @PostMapping(value = "/filter")
+    public Page<EducationalInstitution> findByFilter(@RequestBody EducationalInstitutionFilter filter, Pageable pageable) {
+        return educationalInstitutionService.findByFilter(filter, pageable);
     }
 
     @GetMapping(value = "/{id}")
